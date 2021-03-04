@@ -1,5 +1,6 @@
-package com.sinhro.sequences.model
+package com.sinhro.sequences.model.generators
 
+import com.sinhro.sequences.model.SimpleSequenceGenerator
 import java.lang.ArithmeticException
 
 class FibonacciGeneratorByLong : SimpleSequenceGenerator<Long>() {
@@ -49,5 +50,10 @@ class FibonacciGeneratorByLong : SimpleSequenceGenerator<Long>() {
             }
         }
         return newValues
+    }
+
+    override fun restart() {
+        super.restart()
+        gotMaxValue = false
     }
 }

@@ -1,12 +1,12 @@
-package com.sinhro.sequences
+package com.sinhro.sequences.ui
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.sinhro.sequences.R
 import com.sinhro.sequences.databinding.ActivityMainBinding
 import com.sinhro.sequences.model.GeneratorProvider
-import com.sinhro.sequences.ui.ScrollableSequenceAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -34,18 +34,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.main_menu_fibonacci-> {
+            R.id.main_menu_fibonacci -> {
                 title = getString(R.string.fibonacci_title)
                 adapter.sequenceGenerator = GeneratorProvider.fibonacciGenerator
             }
-            R.id.main_menu_primes-> {
+            R.id.main_menu_primes -> {
                 title = getString(R.string.primes_title)
                 adapter.sequenceGenerator = GeneratorProvider.primesGenerator
             }
-            R.id.main_menu_refresh_generator-> {
+            R.id.main_menu_refresh_generator -> {
                 adapter.sequenceGenerator.restart()
                 adapter.sequenceGenerator.generateNext(10)
                 adapter.refreshData()
+            }
+            R.id.main_menu_fibonacci_bigdec ->{
+                title = getString(R.string.fibonacci_title_bigdec)
+                adapter.sequenceGenerator = GeneratorProvider.fibonacciGeneratorByBigDecimal
             }
         }
         return super.onOptionsItemSelected(item)

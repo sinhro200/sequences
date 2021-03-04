@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    android:padding="8dp"
     >
 
     <TextView
@@ -15,9 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="60sp"
+        android:textSize="50sp"
         android:gravity="center"
-        android:text="123"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

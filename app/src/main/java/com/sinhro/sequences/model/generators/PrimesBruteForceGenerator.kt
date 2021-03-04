@@ -1,4 +1,6 @@
-package com.sinhro.sequences.model
+package com.sinhro.sequences.model.generators
+
+import com.sinhro.sequences.model.SimpleSequenceGenerator
 
 class PrimesBruteForceGenerator : SimpleSequenceGenerator<Int>() {
 

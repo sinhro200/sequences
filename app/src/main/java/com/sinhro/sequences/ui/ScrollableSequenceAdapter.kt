@@ -9,9 +9,9 @@ import com.sinhro.sequences.R
 import com.sinhro.sequences.model.ISequenceGenerator
 
 class ScrollableSequenceAdapter constructor(
-    sequenceGenerator: ISequenceGenerator
+    initialSequenceGenerator: ISequenceGenerator
 ) : RecyclerView.Adapter<ScrollableSequenceAdapter.CustomViewHolder>() {
-    var sequenceGenerator: ISequenceGenerator = sequenceGenerator
+    var sequenceGenerator: ISequenceGenerator = initialSequenceGenerator
         set(value) {
             field = value
             value.onNewValuesReady { newValues ->
@@ -21,14 +21,15 @@ class ScrollableSequenceAdapter constructor(
             }
             refreshData()
         }
+
     init {
-        sequenceGenerator.onNewValuesReady { newValues ->
+        initialSequenceGenerator.onNewValuesReady { newValues ->
             val from = sequence.size
             sequence.addAll(newValues)
             notifyItemRangeInserted(from, newValues.size)
         }
     }
-    private var sequence: MutableList<String> = sequenceGenerator.getAll().toMutableList()
+    private var sequence: MutableList<String> = initialSequenceGenerator.getAll().toMutableList()
 
     fun refreshData(){
         sequence = sequenceGenerator.getAll().toMutableList()
@@ -55,8 +56,8 @@ class ScrollableSequenceAdapter constructor(
 
     override fun onViewAttachedToWindow(holder: CustomViewHolder) {
         super.onViewAttachedToWindow(holder)
-        if (itemCount - holder.layoutPosition < 2)
-            sequenceGenerator.generateNext(4)
+        if (itemCount - holder.layoutPosition < 6)
+            sequenceGenerator.generateNext(8)
     }
 
     class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
