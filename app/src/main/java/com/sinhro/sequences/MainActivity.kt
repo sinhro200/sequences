@@ -5,10 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.sinhro.sequences.databinding.ActivityMainBinding
-import com.sinhro.sequences.model.FibonacciGeneratorByLong
 import com.sinhro.sequences.model.GeneratorProvider
-import com.sinhro.sequences.model.ISequenceGenerator
-import com.sinhro.sequences.model.PrimesBruteForceGenerator
 import com.sinhro.sequences.ui.ScrollableSequenceAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -40,12 +37,10 @@ class MainActivity : AppCompatActivity() {
             R.id.main_menu_fibonacci-> {
                 title = getString(R.string.fibonacci_title)
                 adapter.sequenceGenerator = GeneratorProvider.fibonacciGenerator
-                adapter.refreshData()
             }
             R.id.main_menu_primes-> {
                 title = getString(R.string.primes_title)
                 adapter.sequenceGenerator = GeneratorProvider.primesGenerator
-                adapter.refreshData()
             }
             R.id.main_menu_refresh_generator-> {
                 adapter.sequenceGenerator.restart()

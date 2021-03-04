@@ -1,6 +1,5 @@
 package com.sinhro.sequences.model
 
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -14,8 +13,8 @@ abstract class SimpleSequenceGenerator<T> : ISequenceGenerator {
 
     abstract suspend fun nextValues(currentSequence: List<T>, count: Int): List<T>
 
-    override fun generateNext(count: Int): Job {
-        return scope.launch {
+    override fun generateNext(count: Int){
+        scope.launch {
             val l = nextValues(sequence, count)
             sequence.addAll(l)
             onReady?.invoke(l.map { it.toString() })
@@ -28,12 +27,6 @@ abstract class SimpleSequenceGenerator<T> : ISequenceGenerator {
 
     override fun getAll(): List<String> {
         return sequence.map { it.toString() }
-    }
-
-    override suspend fun get(i: Int): String {
-        if (sequence.size >= i)
-            generateNext(i - sequence.size).join()
-        return sequence[i].toString()
     }
 
     override fun restart() {
