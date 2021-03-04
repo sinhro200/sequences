@@ -13,13 +13,13 @@ class ScrollableSequenceAdapter constructor(
 ) : RecyclerView.Adapter<ScrollableSequenceAdapter.CustomViewHolder>() {
     var sequenceGenerator: ISequenceGenerator = sequenceGenerator
         set(value) {
+            field = value
             value.onNewValuesReady { newValues ->
                 val from = sequence.size
                 sequence.addAll(newValues)
                 notifyItemRangeInserted(from, newValues.size)
             }
             refreshData()
-            field = value
         }
     init {
         sequenceGenerator.onNewValuesReady { newValues ->
