@@ -31,21 +31,16 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.main_menu_fibonacci -> {
-                title = getString(R.string.fibonacci_title)
-                adapter.sequenceGenerator = GeneratorProvider.fibonacciGenerator
+                setFibonacciGeneratorByLong()
             }
             R.id.main_menu_primes -> {
-                title = getString(R.string.primes_title)
-                adapter.sequenceGenerator = GeneratorProvider.primesGenerator
+                setPrimesGenerator()
             }
             R.id.main_menu_refresh_generator -> {
-                adapter.sequenceGenerator.restart()
-                adapter.sequenceGenerator.generateNext(10)
-                adapter.refreshData()
+                refreshGenerator()
             }
             R.id.main_menu_fibonacci_bigdec ->{
-                title = getString(R.string.fibonacci_title_bigdec)
-                adapter.sequenceGenerator = GeneratorProvider.fibonacciGeneratorByBigDecimal
+                setFibonacciGeneratorByBigDecimal()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -62,5 +57,26 @@ class MainActivity : AppCompatActivity() {
         GeneratorProvider.fibonacciGeneratorByBigDecimal.restart()
         GeneratorProvider.primesGenerator.restart()
         super.onDestroy()
+    }
+
+    private fun setFibonacciGeneratorByLong(){
+        title = getString(R.string.fibonacci_title)
+        adapter.sequenceGenerator = GeneratorProvider.fibonacciGenerator
+    }
+
+    private fun setFibonacciGeneratorByBigDecimal(){
+        title = getString(R.string.fibonacci_title_bigdec)
+        adapter.sequenceGenerator = GeneratorProvider.fibonacciGeneratorByBigDecimal
+    }
+
+    private fun setPrimesGenerator(){
+        title = getString(R.string.primes_title)
+        adapter.sequenceGenerator = GeneratorProvider.primesGenerator
+    }
+
+    private fun refreshGenerator(){
+        adapter.sequenceGenerator.restart()
+        adapter.sequenceGenerator.generateNext(10)
+        adapter.refreshData()
     }
 }

@@ -15,7 +15,12 @@ class ScrollableSequenceAdapter constructor(
 
     private var countToGenerate = 8
     private var maxOffsetToUpdate = 20
-    private var offsetToUpdate = 6
+    private var initialOffsetToUpdate = 6
+    private var offsetToUpdate = initialOffsetToUpdate
+        set(value) {
+            field = value
+            Log.i("Offset to update", "Changed. Current $field")
+        }
 
     var sequenceGenerator: ISequenceGenerator = initialSequenceGenerator
         set(value) {
@@ -25,6 +30,7 @@ class ScrollableSequenceAdapter constructor(
                 sequence.addAll(newValues)
                 notifyItemRangeInserted(from, newValues.size)
             }
+            offsetToUpdate = initialOffsetToUpdate
             refreshData()
         }
 
@@ -35,12 +41,14 @@ class ScrollableSequenceAdapter constructor(
             notifyItemRangeInserted(from, newValues.size)
         }
     }
+
     private var sequence: MutableList<String> = initialSequenceGenerator.getAll().toMutableList()
 
-    fun refreshData(){
+    fun refreshData() {
         sequence = sequenceGenerator.getAll().toMutableList()
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.element_view, parent, false)
@@ -50,7 +58,7 @@ class ScrollableSequenceAdapter constructor(
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.textView.text = sequence[position]
-        if (position%4==0 || position%4==3)
+        if (position % 4 == 0 || position % 4 == 3)
             holder.itemView.setBackgroundResource(R.color.colorGray)
         else
             holder.itemView.setBackgroundResource(R.color.colorWhite)
@@ -63,10 +71,8 @@ class ScrollableSequenceAdapter constructor(
     override fun onViewAttachedToWindow(holder: CustomViewHolder) {
         super.onViewAttachedToWindow(holder)
         val curOffset = itemCount - holder.layoutPosition
-        if (curOffset < 2 && offsetToUpdate < maxOffsetToUpdate) {
+        if (curOffset < 2 && offsetToUpdate < maxOffsetToUpdate && itemCount > 20)
             offsetToUpdate++
-            Log.i("Offset to update","Increased. Current $offsetToUpdate")
-        }
         if (curOffset < offsetToUpdate)
             sequenceGenerator.generateNext(countToGenerate)
     }
