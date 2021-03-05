@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Sequences</string>
-    <string name="main_menu_fibonacci">Числа фибоначи (long)</string>
-    <string name="main_menu_primes">Простые числа</string>
+<!--    ##  Main menu   -->
     <string name="main_menu_refresh_generator">Перезагрузить генератор</string>
+    <string name="main_menu_primes">Простые числа</string>
+    <string name="main_menu_fibonacci">Числа фибоначи (long)</string>
+    <string name="main_menu_fibonacci_bigdec">Числа фибоначи (BigDecimal)</string>
+<!--    ##  Titles   -->
     <string name="primes_title">Простые числа</string>
     <string name="fibonacci_title">Числа фибоначи</string>
-    <string name="main_menu_fibonacci_bigdec">Числа фибоначи (BigDecimal)</string>
     <string name="fibonacci_title_bigdec">Числа фибоначи (BigDecimal)</string>
 </resources>

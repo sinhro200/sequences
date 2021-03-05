@@ -1,7 +1,6 @@
 package com.sinhro.sequences.model.generators
 
 import com.sinhro.sequences.model.SimpleSequenceGenerator
-import java.lang.ArithmeticException
 
 class FibonacciGeneratorByLong : SimpleSequenceGenerator<Long>() {
 
@@ -39,7 +38,7 @@ class FibonacciGeneratorByLong : SimpleSequenceGenerator<Long>() {
             var newValue: Long
             while (cnt-- > 0) {
                 try {
-                    newValue = Math.addExact(cur, prev)
+                    newValue = addExact(cur, prev)
                 } catch (e: ArithmeticException){
                     gotMaxValue = true
                     return newValues
@@ -50,6 +49,14 @@ class FibonacciGeneratorByLong : SimpleSequenceGenerator<Long>() {
             }
         }
         return newValues
+    }
+
+    private fun addExact(x: Long, y: Long): Long {
+        val r = x + y
+        if (x xor r and (y xor r) < 0) {
+            throw ArithmeticException("Long overflow")
+        }
+        return r
     }
 
     override fun restart() {

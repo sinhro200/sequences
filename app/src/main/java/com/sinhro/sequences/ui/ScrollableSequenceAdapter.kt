@@ -1,5 +1,6 @@
 package com.sinhro.sequences.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,11 @@ import com.sinhro.sequences.model.ISequenceGenerator
 class ScrollableSequenceAdapter constructor(
     initialSequenceGenerator: ISequenceGenerator
 ) : RecyclerView.Adapter<ScrollableSequenceAdapter.CustomViewHolder>() {
+
+    private var countToGenerate = 8
+    private var maxOffsetToUpdate = 20
+    private var offsetToUpdate = 6
+
     var sequenceGenerator: ISequenceGenerator = initialSequenceGenerator
         set(value) {
             field = value
@@ -56,8 +62,13 @@ class ScrollableSequenceAdapter constructor(
 
     override fun onViewAttachedToWindow(holder: CustomViewHolder) {
         super.onViewAttachedToWindow(holder)
-        if (itemCount - holder.layoutPosition < 6)
-            sequenceGenerator.generateNext(8)
+        val curOffset = itemCount - holder.layoutPosition
+        if (curOffset < 2 && offsetToUpdate < maxOffsetToUpdate) {
+            offsetToUpdate++
+            Log.i("Offset to update","Increased. Current $offsetToUpdate")
+        }
+        if (curOffset < offsetToUpdate)
+            sequenceGenerator.generateNext(countToGenerate)
     }
 
     class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {

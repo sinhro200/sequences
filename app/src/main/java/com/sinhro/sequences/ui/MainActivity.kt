@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(mBinding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
         initFields()
     }
 
@@ -59,5 +55,12 @@ class MainActivity : AppCompatActivity() {
         title = getString(R.string.fibonacci_title)
         adapter = ScrollableSequenceAdapter(GeneratorProvider.fibonacciGenerator)
         elements_recycler_view.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        GeneratorProvider.fibonacciGenerator.restart()
+        GeneratorProvider.fibonacciGeneratorByBigDecimal.restart()
+        GeneratorProvider.primesGenerator.restart()
+        super.onDestroy()
     }
 }
