@@ -16,6 +16,11 @@ class ScrollableSequenceAdapter constructor(
     private var countToGenerate = 8
     private var maxOffsetToUpdate = 20
     private var initialOffsetToUpdate = 6
+
+    /**
+     * Offset to update can be saved for each generator in shared prefs,
+     * but I dont think its needed for this task
+     */
     private var offsetToUpdate = initialOffsetToUpdate
         set(value) {
             field = value
