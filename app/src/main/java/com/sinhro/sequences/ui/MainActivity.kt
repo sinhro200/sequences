@@ -53,9 +53,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        GeneratorProvider.fibonacciGenerator.restart()
-        GeneratorProvider.fibonacciGeneratorByBigDecimal.restart()
-        GeneratorProvider.primesGenerator.restart()
+        GeneratorProvider.fibonacciGenerator.clean()
+        GeneratorProvider.fibonacciGeneratorByBigDecimal.clean()
+        GeneratorProvider.primesGenerator.clean()
         super.onDestroy()
     }
 
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshGenerator(){
-        adapter.sequenceGenerator.restart()
+        adapter.sequenceGenerator.clean()
         adapter.sequenceGenerator.generateNext(10)
         adapter.refreshData()
     }

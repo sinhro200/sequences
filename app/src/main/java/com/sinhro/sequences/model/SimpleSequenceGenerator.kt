@@ -29,7 +29,7 @@ abstract class SimpleSequenceGenerator<T> : ISequenceGenerator {
         return sequence.map { it.toString() }
     }
 
-    override fun restart() {
+    override fun clean() {
         sequence.clear()
     }
 }

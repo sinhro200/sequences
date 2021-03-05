@@ -59,8 +59,8 @@ class FibonacciGeneratorByLong : SimpleSequenceGenerator<Long>() {
         return r
     }
 
-    override fun restart() {
-        super.restart()
+    override fun clean() {
+        super.clean()
         gotMaxValue = false
     }
 }
